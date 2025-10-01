@@ -58,7 +58,7 @@ export default function Eligibility() {
 
     const category: CutoffCategory = sponsorship === "self" ? "selfSponsored" : "governmentSponsored";
     
-    return selectedDepartments.map((dept) => {
+    const results = selectedDepartments.map((dept) => {
       const cutoff = cutoffData[category][dept];
       const eligibility = checkEligibility(score, cutoff);
       return {
@@ -68,6 +68,24 @@ export default function Eligibility() {
         ...eligibility,
       };
     });
+
+    // Check if self-sponsored and didn't pass any selected departments
+    if (sponsorship === "self" && studentType && !results.some(r => r.passed)) {
+      const freshmanProgram = studentType === "natural" 
+        ? "Natural Science Freshman Program_Self"
+        : "Social Science Freshman Program_Self";
+      const freshmanCutoff = cutoffData.selfSponsored[freshmanProgram];
+      const freshmanEligibility = checkEligibility(score, freshmanCutoff);
+      
+      results.push({
+        department: freshmanProgram + " (Auto-checked)",
+        cutoff: freshmanCutoff,
+        score,
+        ...freshmanEligibility,
+      });
+    }
+
+    return results;
   };
 
   const exportToPDF = () => {

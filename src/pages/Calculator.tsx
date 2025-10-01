@@ -16,7 +16,7 @@ const formSchema = z.object({
   matric: z.coerce
     .number()
     .min(0, "Matric result must be at least 0")
-    .max(420, "Matric result cannot exceed 420"),
+    .max(600, "Matric result cannot exceed 600"),
   uat: z.coerce
     .number()
     .min(0, "UAT result must be at least 0")
@@ -69,7 +69,7 @@ export default function Calculator() {
                 Score Input
               </CardTitle>
               <CardDescription>
-                Your weighted score is calculated as: (Matric/420) × 60 + (UAT/160) × 40
+                Your weighted score is calculated as: (Matric ÷ 12) + (UAT ÷ 2)
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -84,13 +84,13 @@ export default function Calculator() {
                         <FormControl>
                           <Input
                             type="number"
-                            placeholder="Enter score (0-420)"
+                            placeholder="Enter score (0-600)"
                             {...field}
                             className="text-lg"
                           />
                         </FormControl>
                         <FormDescription>
-                          Your Grade 12 examination result out of 420
+                          Your Grade 12 examination result out of 600
                         </FormDescription>
                         <FormMessage />
                       </FormItem>

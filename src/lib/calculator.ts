@@ -1,8 +1,7 @@
 export function calculateWeightedScore(matricResult: number, uatResult: number): number {
-  // Formula: X = (matric / 420) * 60 + (uat / 160) * 40
-  const matricScore = (matricResult / 420) * 60;
-  const uatScore = (uatResult / 160) * 40;
-  return Number((matricScore + uatScore).toFixed(2));
+  // Formula: Score = (Matric ÷ 12) + (UAT ÷ 2)
+  const score = (matricResult / 12) + (uatResult / 2);
+  return Number(score.toFixed(2));
 }
 
 export function checkEligibility(
